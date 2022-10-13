@@ -1,0 +1,15 @@
+#dong-navbar{
+   background-color: #2b2d31;
+}
+#dong-navbar .navbar-title{
+   font-family: 'Dancing Script', cursive;
+}
+#dong-navbar .nav-links a{
+   color: #a0a3ab;
+   text-decoration: none;
+   border-bottom: 2px solid transparent;
+}
+#dong-navbar .nav-links a.active{
+   color: white !important;
+   border-bottom: 2px solid white;
+}
