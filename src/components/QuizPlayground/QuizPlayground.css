@@ -5,24 +5,33 @@ section#single-quiz .quiz-main{
    padding: 3%;
    overflow: hidden;
    margin-top: 100px;
+   position: relative;
+}
+section#single-quiz .quiz-main .extras{
+   position: absolute;
+   height: 10%;
+   top: 0;
+   left: 0;
+   z-index: 100;
+   width: 80% !important;
 }
 .quiz-main .buttons{
-   height: 70px;
+   /* height: 70px; */
+   position: absolute;
+   height: 10%;
+   bottom: 0;
+   left: 0;
+   z-index: 100;
 }
 .quiz-main .buttons button{
    width: 30%;
-}
-
-#questions-wrapper{
-   transition: transform 300ms ease;
-   background-color: transparent;
 }
 
 @media (min-width: 768px) {
    section#single-quiz .quiz-main{
       width: 40%;
       height: 75%;
-      padding: 1% 1% 2% 1%;
+      padding: 0;
       margin-top: 0;
    }
    .quiz-main .buttons{
