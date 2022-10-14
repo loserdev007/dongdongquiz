@@ -4,107 +4,57 @@ import { useLoaderData } from "react-router-dom";
 import SingleQuestion from "./SingleQuestion/SingleQuestion";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/esm/Button";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
-let currQ = 0;
-let ras = 0;
+let currentQuestion = 0;
 
 const QuizPlayground = () => {
+   console.log("QPlayground");
    const data = useLoaderData().data;
    const questions = data.questions;
-   // console.log(questions[0].options.length);
-   // let leftgone = 0;
 
+   /*
+      ** State changes depends on next/previous answer swipe
+   */
    const [move, setMove] = useState(0);
 
    const nextBtnClickHandler = (e) => {
-      // if (leftgone + 100 / questions.length < 100) {
-      //    e.target
-      //       .closest(".quiz-main")
-      //       .querySelector(
-      //          "#questions-wrapper"
-      //       ).style.transform = `translateX(-${
-      //       leftgone + 100 / questions.length
-      //    }%)`;
-      //    leftgone = leftgone + 100 / questions.length;
-      //    currQ++;
-      //    e.target
-      //       .closest(".quiz-main")
-      //       .querySelector(".extras #current-question").textContent = currQ;
-      //    e.target.closest(".quiz-main").style.backgroundColor = "#292a2e";
-      //    console.log(leftgone);
-      // }
-      if (currQ + 1 < questions.length) {
-         currQ++;
-         setMove(currQ * 100);
+      if (currentQuestion + 1 < questions.length) {
+         currentQuestion++;
+         setMove(currentQuestion * 100);
       }
    };
    const prevBtnClickHandler = (e) => {
-      // if (leftgone - 100 / questions.length >= -2) {
-      //    e.target
-      //       .closest(".quiz-main")
-      //       .querySelector(
-      //          "#questions-wrapper"
-      //       ).style.transform = `translateX(-${
-      //       leftgone - 100 / questions.length
-      //    }%)`;
-      //    leftgone = leftgone - 100 / questions.length;
-      //    currQ--;
-      //    e.target
-      //       .closest(".quiz-main")
-      //       .querySelector(".extras #current-question").textContent = currQ;
-      //    console.log(leftgone);
-      //    e.target.closest(".quiz-main").style.backgroundColor = "#292a2e";
-      // }
-      if (currQ - 1 >= 0) {
-         currQ--;
-         setMove(currQ * 100);
+      if (currentQuestion - 1 >= 0) {
+         currentQuestion--;
+         setMove(currentQuestion * 100);
       }
-   };
-   const revealAnswer = (e) => {
-      ras++;
-      // e.target
-      //    .closest(".quiz-main")
-      //    .querySelectorAll(".question")
-      //    [currQ - 1].querySelectorAll(".option-section .option")
-      //    .forEach((element) => {
-      //       // console.log(.textContent)
-      //       const el = element.querySelector("span");
-      //       if (el.textContent === questions[currQ - 1].correctAnswer) {
-      //          console.log("hahah");
-      //          el.style.backgroundColor = "#285427";
-      //       } else {
-      //          el.style.backgroundColor = "#322020";
-      //       }
-      //    });
    };
    const isSuccess = (e) => {
-      if (e === 1) {
-         toast.success("Right Answer!", {
-            position: "top-center",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            progress: undefined,
-            pauseOnFocusLoss: false,
-            theme: "light",
-         });
-      } else {
-         toast.error("Wrong Answer...", {
-            position: "top-center",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            progress: undefined,
-            pauseOnFocusLoss: false,
-            theme: "dark",
-         });
-      }
+      // if (e === 1) {
+      //    toast.success("Right Answer!", {
+      //       position: "top-center",
+      //       autoClose: 3000,
+      //       hideProgressBar: false,
+      //       closeOnClick: true,
+      //       pauseOnHover: false,
+      //       draggable: true,
+      //       progress: undefined,
+      //       pauseOnFocusLoss: false,
+      //       theme: "light",
+      //    });
+      // } else {
+      //    toast.error("Wrong Answer...", {
+      //       position: "top-center",
+      //       autoClose: 3000,
+      //       hideProgressBar: false,
+      //       closeOnClick: true,
+      //       pauseOnHover: false,
+      //       draggable: true,
+      //       progress: undefined,
+      //       pauseOnFocusLoss: false,
+      //       theme: "dark",
+      //    });
+      // }
    };
    return (
       <section
@@ -114,12 +64,11 @@ const QuizPlayground = () => {
          <div
             className="quiz-main d-flex"
             id="quiz-main"
-            // style={{ width: `${questions.length * 100}%`, flex: "1" }}
          >
             <div className="extras d-flex justify-content-start align-items-center px-4 w-100">
                <p className="text-white fs-5 text-white-50 w-25 user-select-none">
                   <span id="current-question" className="text-info">
-                     {currQ + 1}
+                     {currentQuestion + 1}
                   </span>{" "}
                   / <span id="total-question">{questions.length}</span>
                </p>
@@ -127,6 +76,7 @@ const QuizPlayground = () => {
             </div>
             {questions.map((question, id) => (
                <SingleQuestion
+                  key={question.id}
                   question={question}
                   ql={questions.length}
                   isSuccess={isSuccess}
@@ -134,20 +84,6 @@ const QuizPlayground = () => {
                   move={move}
                />
             ))}
-            {/* <div
-               style={{ width: `${questions.length * 100}%`, flex: "1" }}
-               className="d-flex"
-               id="questions-wrapper"
-            >
-               {questions.map((question, id) => (
-                  <SingleQuestion
-
-                     question={question}
-                     ql={questions.length}
-                     isSuccess={isSuccess}
-                  />
-               ))}
-            </div> */}
             <div className="buttons d-flex align-items-start justify-content-center align-self-end w-100">
                <Button
                   className="mx-3"
@@ -168,7 +104,6 @@ const QuizPlayground = () => {
                </Button>
             </div>
          </div>
-         <ToastContainer />
       </section>
    );
 };

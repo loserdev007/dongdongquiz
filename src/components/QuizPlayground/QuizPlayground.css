@@ -6,6 +6,7 @@ section#single-quiz .quiz-main{
    overflow: hidden;
    margin-top: 100px;
    position: relative;
+   z-index: 0;
 }
 section#single-quiz .quiz-main .extras{
    position: absolute;

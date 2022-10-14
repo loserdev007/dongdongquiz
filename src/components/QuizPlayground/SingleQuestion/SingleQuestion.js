@@ -2,8 +2,11 @@ import "./SingleQuestion.css";
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SingleQuestion = (props) => {
+   console.log("SingleQuestion");
    const question = props.question;
    const answer = props.question.correctAnswer;
    /*
@@ -18,7 +21,7 @@ const SingleQuestion = (props) => {
    */
 
    /*
-      ** Checking wether user selected any option and is that correct or not
+      ** State changes depends on user neutral/selection/right/wrong answer.
 
       Started by assingning an empty string to the state.
       Empty string means there is no value at the initial stage which can also be referred as neutral state.
@@ -31,38 +34,51 @@ const SingleQuestion = (props) => {
    */
    const [checkAnswer, setCheckAnswer] = useState("");
 
+   
+   
+
+      
+
    const optionSelectionHandler = (e) => {
-      setCheckAnswer(true);
-      console.log("Set Selected");
+      console.log(e.target)
 
       const selectedOption = e.target.dataset.option;
       const correctAnswer = e.target.closest(".question").dataset.answer;
 
       // Right Answer
-      if (selectedOption === correctAnswer) setCheckAnswer(2);
+      if (selectedOption === correctAnswer) {
+         setCheckAnswer(2);
+         toast.success("Right Answer!", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            pauseOnFocusLoss: false,
+            theme: "light",
+         });
+      }
       // Wrong Answer
-      else setCheckAnswer(1);
-      // e.target.closest('.option-section').querySelectorAll('.option span').forEach(element => {
-      //    if(element.textContent === question.correctAnswer){
-      //       element.style.backgroundColor = '#285427'
-      //       element.disable = true
-      //    }else{
-      //       element.style.backgroundColor = '#322020'
-      //       element.disable = true
-      //    }
-      // });
-      // if(e.target.closest('label').querySelector('span').textContent === question.correctAnswer){
-      //    e.target.closest('.quiz-main').style.backgroundColor = '#1f2e21'
-      //    props.isSuccess(1)
-      //    console.log("Right")
-      // }else{
-      //    e.target.closest('.quiz-main').style.backgroundColor = '#2b1f1f'
-      //    props.isSuccess(0)
-      //    console.log("Wrong")
-      // }
+      else {
+         setCheckAnswer(1);
+         toast.error("Wrong Answer...", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            pauseOnFocusLoss: false,
+            theme: "dark",
+         });
+      }
    };
 
    const revealAnswer = (e) => {
+      console.log("reveal answer")
       // setCheckAnswer((prev) => (prev === 1 ? 1 : prev === 2 ? 2 : 3));
       setCheckAnswer(3);
    };
@@ -136,6 +152,7 @@ const SingleQuestion = (props) => {
                </div>
             ))}
          </div>
+         <ToastContainer />
       </div>
    );
 };
