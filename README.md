@@ -9,7 +9,7 @@ This is a quiz website. Anyone can play programming quiz and test their knowledg
 
 ## Live Website
 
-[Here](https://frabjous-sundae-71e8d1.netlify.app) is the live website link, don't forget to check it out! 
+[Here](https://strong-pastelito-d22094.netlify.app) is the live website link, don't forget to check it out! 
 
 
 ## Features
