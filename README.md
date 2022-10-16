@@ -4,6 +4,7 @@ This is a quiz website. Anyone can play programming quiz and test their knowledg
 
 ## Update v1.1.2
 
+* Based on **100%** react hook, **no** raw JS interaction used.
 * `CSS` based question page interactions and designs
 * `CSS` based right/wrong answer designs
 
